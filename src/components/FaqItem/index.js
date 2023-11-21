@@ -2,20 +2,21 @@ import {Component} from 'react'
 import './index.css'
 
 class FaqItem extends Component {
+  state = {isIconClicked: false}
+
   onClickFaq = () => {
-    const {updateVisibleFaqs, faqItemData} = this.props
-    updateVisibleFaqs(faqItemData.id)
+    this.setState(prevState => ({isIconClicked: !prevState.isIconClicked}))
   }
 
   render() {
-    const {faqItemData, visibleFaqs} = this.props
-    const {questionText, id, answerText} = faqItemData
-    const isActiveId = visibleFaqs.includes(id)
-    const faqButton = isActiveId
+    const {faqItemData} = this.props
+    const {questionText, answerText} = faqItemData
+    const {isIconClicked} = this.state
+    const faqButton = isIconClicked
       ? 'https://assets.ccbp.in/frontend/react-js/faqs-minus-icon-img.png'
       : 'https://assets.ccbp.in/frontend/react-js/faqs-plus-icon-img.png'
-    const answerVisibility = isActiveId ? '' : 'invisible'
-    const faqButtonAlt = isActiveId ? 'minus' : 'plus'
+    const answerVisibility = isIconClicked ? '' : 'invisible'
+    const faqButtonAlt = isIconClicked ? 'minus' : 'plus'
     return (
       <li className="faq-item">
         <div className="faq-question-container">
